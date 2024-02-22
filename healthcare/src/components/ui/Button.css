@@ -1,0 +1,13 @@
+.primary{
+    color: var(--white);
+    background-color: var(--green);
+    max-width: 200px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+.primary:hover{
+    cursor: pointer;
+}
