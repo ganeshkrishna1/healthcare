@@ -26,8 +26,6 @@ body {
     font-weight: 700;
   }
 
-  background-color: var(--primaryBg);
-
   font-family: "League Spartan", sans-serif;
   
   -webkit-font-smoothing: antialiased;

@@ -28,7 +28,7 @@ export default function Login() {
           handleFunction={handleOnClick}
         />
         <div>
-          Not a member? <Link to={"register"}>Register</Link>
+          Not a member? <Link to={"/register"}>Register</Link>
         </div>
       </div>
     </div>

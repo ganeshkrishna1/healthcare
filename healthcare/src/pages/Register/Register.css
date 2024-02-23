@@ -2,12 +2,14 @@
     width: 60%;
     gap: 20px;
     border: 1px solid var(--green);
+    border-radius: 4px;
     background-color: #F4FFFA;
 }
 .register-details{
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 0px 20px;
 }
 .register-title{
     width: 100%;
@@ -19,9 +21,18 @@
     color: var(--white);
 }
 
+.register-email{
+    width: 100%;
+    padding: 0 20px;
+}
+.register-inputStyle{
+    width: 45%;
+}
 .register-inputStyle > input{
-    width: 130%;
+    width: 100%;
+    padding: 2px 4px;
     border: 1px solid rgba(0, 0, 0, 0.301);
+    border-radius: 4px;
     outline: none;
     background-color: rgba(248, 248, 248, 0.662);
 

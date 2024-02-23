@@ -21,7 +21,7 @@ export default function Register() {
               <input type="text" />
             </div>
           </div>
-          <div>
+          <div className="register-email">
             <div className="register-inputStyle">
               <div>Email</div>
               <input type="email" />
