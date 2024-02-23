@@ -12,6 +12,7 @@
 }
 
 
+
 body {
   margin: 0;
   * {
@@ -19,6 +20,10 @@ body {
     margin: 0;
     text-decoration: 0;
     color: var(--black);
+  }
+  a{
+    color: var(--green2);
+    font-weight: 700;
   }
 
   background-color: var(--primaryBg);

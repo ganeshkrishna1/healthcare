@@ -1,0 +1,28 @@
+.register-main{
+    width: 60%;
+    gap: 20px;
+    border: 1px solid var(--green);
+    background-color: #F4FFFA;
+}
+.register-details{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+.register-title{
+    width: 100%;
+    padding: 6px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.register-inputStyle > input{
+    width: 130%;
+    border: 1px solid rgba(0, 0, 0, 0.301);
+    outline: none;
+    background-color: rgba(248, 248, 248, 0.662);
+
+}
