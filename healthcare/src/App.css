@@ -1,0 +1,4 @@
+.App-main{
+    background-color: var(--primaryBg);
+    min-height: 100vh;
+}

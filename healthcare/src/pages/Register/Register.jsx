@@ -85,7 +85,7 @@ export default function Register() {
               <input type="text" name='Username' onChange={handleChange}/>
             </div>
           </div>
-          <div>
+          <div className="register-email">
             <div className="register-inputStyle">
               <div>Email</div>
               <input type="email" name='Email' onChange={handleChange}/>
