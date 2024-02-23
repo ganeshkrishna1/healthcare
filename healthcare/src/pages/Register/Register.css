@@ -26,3 +26,6 @@
     background-color: rgba(248, 248, 248, 0.662);
 
 }
+.error-message{
+    color: red;
+}

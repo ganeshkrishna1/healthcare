@@ -13,7 +13,7 @@ const Controllers = {
     },
 
     addUser: (req, res) => {
-        const { Username, Password, Email, UserType } = req.body;
+        const { Username, Password, Email, UserType ,FullName} = req.body;
         
         const checkUserQuery = "SELECT * FROM User WHERE Username = ?";
         db.query(checkUserQuery, [Username], (err, existingUser) => {
@@ -26,8 +26,8 @@ const Controllers = {
                 return res.status(400).json({ error: "Username already exists" });
             }
             
-            const userquery = "INSERT INTO User (`Username`, `Password`, `Email`, `UserType`) VALUES (?, ?, ?, ?)";
-            const values = [Username, Password, Email, UserType];
+            const userquery = "INSERT INTO User (`Username`, `Password`, `Email`, `UserType`,`FullName`) VALUES (?, ?, ?, ?, ?)";
+            const values = [Username, Password, Email, UserType,FullName];
             db.query(userquery, values, (err, data) => {
                 if (err) {
                     console.error("Error adding user:", err);
