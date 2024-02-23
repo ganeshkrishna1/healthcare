@@ -2,6 +2,7 @@ import React from "react";
 
 import "./Login.css";
 import Button from "../../components/ui/Button";
+import { Link } from "react-router-dom";
 export default function Login() {
   const handleOnClick = () => {
     console.log("login");
@@ -26,6 +27,9 @@ export default function Login() {
           buttonType="primary"
           handleFunction={handleOnClick}
         />
+        <div>
+          Not a member? <Link to={"register"}>Register</Link>
+        </div>
       </div>
     </div>
   );
