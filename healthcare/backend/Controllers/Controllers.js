@@ -40,17 +40,17 @@ const Controllers = {
     
 
     Updateuser: (req, res) => {
-        const { UserID, Username, Password, Email, UserType } = req.body;
-        const userquery = "UPDATE User set `Username`= ?, `Password`= ?, `Email`= ?, `UserType`= ? WHERE UserID = ?";
-        const values = [Username, Password, Email, UserType];
-        db.query(userquery, [...values, UserID], (err, data) => {
-            if (err) 
-            {
+        const { UserID, Username, Password, Email, UserType, FullName } = req.body;
+        const userquery = "UPDATE User SET `Username` = ?, `Password` = ?, `Email` = ?, `UserType` = ?, `FullName` = ? WHERE UserID = ?";
+        const values = [Username, Password, Email, UserType, FullName, UserID];
+        db.query(userquery, values, (err, data) => {
+            if (err) {
                 return res.send(err);
             }
             return res.json(data);
         });
     },
+    
 
     deleteUser : (req, res) => {
         const UserID = req.body.UserID;
@@ -66,7 +66,7 @@ const Controllers = {
 
     loginUser: (req, res) => {
         const { Username, Password } = req.body;
-        
+        console.log(Username, Password);
         const loginQuery = "SELECT * FROM User WHERE Username = ? AND Password = ?";
         db.query(loginQuery, [Username, Password], (err, user) => {
             if (err) {
@@ -78,7 +78,8 @@ const Controllers = {
                 return res.status(401).json({ error: "Invalid username or password" });
             }
             
-            return res.json(user[0]);
+            res.json({ message: 'Login successful', UserDetails: user[0] });
+
         });
     },
     

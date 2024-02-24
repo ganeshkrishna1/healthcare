@@ -30,5 +30,5 @@ app.put("/UpdateUser", controllers.Updateuser);
 
 app.delete("/deleteUser", controllers.deleteUser);
 
-app.get("/login", controllers.loginUser);
+app.post("/login", controllers.loginUser);
 

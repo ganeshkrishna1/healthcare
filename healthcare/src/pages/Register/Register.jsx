@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Checkmark } from 'react-checkmark'
 import "./Register.css";
 import Button from "../../components/ui/Button";
-import { Link, Navigate, useNavigate  } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import AuthUserDetails from './AuthUserDetails';
 import axios from 'axios';
 import Modal from '../../components/Modal/Modal';
@@ -36,7 +36,7 @@ export default function Register() {
   
   }
   const ModalIcon = () =>{
-    if(showModal.status == 'Success')
+    if(showModal.status === 'Success')
     {
       return <Checkmark size='60px' color='green' />
     }
@@ -83,6 +83,7 @@ export default function Register() {
             <div className="register-inputStyle">
               <div>User Name</div>
               <input type="text" name='Username' onChange={handleChange}/>
+              {errors.Username && <div className="error-message">{errors.Username}</div>}
             </div>
           </div>
           <div className="register-email">
@@ -109,6 +110,7 @@ export default function Register() {
             <div className="register-inputStyle">
               <div>Password</div>
               <input type="text" name='Password' onChange={handleChange}/>
+              {errors.Password && <div className="error-message">{errors.Password}</div>}
             </div>
             <div className="register-inputStyle">
               <div>Confirm Password</div>
