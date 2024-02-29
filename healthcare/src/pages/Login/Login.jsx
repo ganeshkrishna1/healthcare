@@ -24,7 +24,7 @@ export default function Login() {
         const res = await axios.post('http://localhost:8800/login', values);
         const UserType = res.data.UserDetails.UserType;
         console.log('success',res.data.UserDetails.UserType);
-        if(UserType == 'Patient' )
+        if(UserType === 'Patient' )
         {
           alert('Patient');
         }

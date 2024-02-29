@@ -4,7 +4,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import Header from "./components/Header/Header";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
-
+import Dashboard from "./pages/Dashboard/Dashboard";
 function App() {
   return (
     <div className="App-main">
@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </div>
