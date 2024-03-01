@@ -1,0 +1,16 @@
+.doctors-list-displayer{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+.doctors-list-item-logo>img{
+    /* mix-blend-mode:exclusion; */
+    height: 200px;
+    width: 200px;
+}
+.doctors-list-item{
+    text-align: center;
+    display: grid;
+    row-gap: 20px;
+    border: 2px solid #239F6B;
+    border-radius: 20px;
+}
