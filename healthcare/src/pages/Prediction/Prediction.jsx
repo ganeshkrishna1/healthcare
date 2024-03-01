@@ -4,10 +4,7 @@ import Button from "../../components/ui/Button";
 import OpenAI from 'openai';
 
 function Prediction() {
-    const openAi = new OpenAI({
-        apiKey: "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",
-        dangerouslyAllowBrowser: true
-    });
+ 
     const values = 'headache,fever,stomachpain,cold,cough';
     const [response, setResponse] = useState({});
     
