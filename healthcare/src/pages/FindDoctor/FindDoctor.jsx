@@ -101,7 +101,7 @@ function FindDoctor() {
                             <div className="doctor-description-title">Description</div>
                             <div className="doctor-description-content">{filteredDoctors[selectedDoctorIndex]?.description}</div>
                         </div>
-                        <div className="button-group">
+                        <div className="book-appointment-button">
                     <Button
                         label="Book Appointment"
                         buttonType="primary"

@@ -6,6 +6,7 @@ import { Link, useNavigate  } from "react-router-dom";
 import AuthUserDetails from './AuthUserDetails';
 import axios from 'axios';
 import Modal from '../../components/Modal/Modal';
+import { AiOutlineCloseCircle } from "react-icons/ai";
 export default function Register() {
   const navigate = useNavigate();
   const [errors, setError] = useState({});
@@ -41,7 +42,17 @@ export default function Register() {
       return <Checkmark size='60px' color='green' />
     }
     else{
-      return <Checkmark size='60px' color='red' />
+      return <AiOutlineCloseCircle
+      style={{
+        fill: '#ff0000',fontSize: '70px',animation: 'scaleAnimation 1s ease forwards',
+      }}
+    />
+  //   return   <IoIosCloseCircle
+  //   style={{
+  //     fill: '#ff0000',fontSize: '70px',animation: 'scaleAnimation 1s ease forwards'
+  //   }}
+  // />
+
     }
   }
   const handleRegister = async () =>{
@@ -130,7 +141,8 @@ export default function Register() {
       </div>
       {showModal.status && <Modal>
         {ModalIcon()}
-        {showModal.message}
+        {/* <div className="Modal-icon">{ModalIcon()}</div> */}
+        <div className="modal-message">{showModal.message}</div>
       <Button
             label="Continue"
             buttonType="primary"
