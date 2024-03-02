@@ -1,17 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./FindDoctor.css";
 import Select from 'react-select';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import Button from "../../components/ui/Button";
-
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+import Modal from '../../components/Modal/Modal';
+import { Checkmark } from 'react-checkmark'
+import { useNavigate  } from "react-router-dom";
 function FindDoctor() {
+    const navigate = useNavigate();
+    const [showConformation,setShowConfirmation] = useState(false);
+    const [bookingMessage, setbookingMessage] = useState({
+
+    })
+    const [selectedDate, setSelectedDate] = useState('');
+
+  const handleDateChange = (date) => {
+    
+    setSelectedDate(date._d);
+    // console.log(date);
+  };
     const [selectedSymptoms, setSelectedSymptoms] = useState('');
     const [selectedDoctorIndex, setSelectedDoctorIndex] = useState(null);
     const [filteredDoctors, setFilteredDoctors] = useState([]);
 
     const handleOnClick = () =>{
-
+        let message = 'Your appointment is confirmed on '+selectedDate;
+        setbookingMessage(message);
+        setShowConfirmation(true);
     }
 
     const updateSpecialization = (event) => {
@@ -24,7 +42,10 @@ function FindDoctor() {
     const selectDoctor = (doctorIndex) => {
         setSelectedDoctorIndex(doctorIndex);
     }
-
+    const handleModalClose=()=>{
+        setShowConfirmation(!showConformation);
+        navigate('/home');
+    }
     const doctorsList = [
         {
             name: "Scott Wann",
@@ -82,7 +103,6 @@ function FindDoctor() {
                         ))}
                     </div>
                 )}
-
                 {selectedDoctorIndex !== null && (
                     <>
                         <div className="doctor-name-logo">
@@ -101,6 +121,14 @@ function FindDoctor() {
                             <div className="doctor-description-title">Description</div>
                             <div className="doctor-description-content">{filteredDoctors[selectedDoctorIndex]?.description}</div>
                         </div>
+                        <div className="appointment-time-selector">
+                            <div className="appointment-time-selector-text">
+                                Select your date and time for scheduling appointment
+                            </div>
+                        <Datetime className="appointment-time-selector-input" dateFormat="MM-dd-yyyy" selected={selectedDate} timeIntervals={30} timeFormat="hh:mm" onChange={handleDateChange} showTimeSelect updateOnView="time"/>
+                            {/* <div className="appointment-time-selector-input">
+                            </div> */}
+                        </div>
                         <div className="book-appointment-button">
                     <Button
                         label="Book Appointment"
@@ -111,6 +139,16 @@ function FindDoctor() {
                     </>
                 )}
             </div>
+            {showConformation && 
+            <Modal>
+            <Checkmark size='60px' color='green' />
+            <div className="modal-message">{typeof bookingMessage === 'string' ? bookingMessage : ''}</div>      <Button
+            label="Continue to Dashboard"
+            buttonType="primary"
+            handleFunction={handleModalClose}
+          />
+      </Modal>
+            }
         </div>
     );
 }

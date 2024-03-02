@@ -68,3 +68,17 @@
     margin-top: 5%;
     margin-left: auto;
 }
+.appointment-time-selector{
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+.appointment-time-selector-text{
+    font-size: large;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+.appointment-time-selector-input{
+    border: 1px solid gray;
+    border-radius: 5px;
+}
