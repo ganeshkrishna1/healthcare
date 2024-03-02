@@ -4,12 +4,16 @@ import Button from "../../components/ui/Button";
 import OpenAI from 'openai';
 
 function Prediction() {
- 
+
+    const openAi = new OpenAI({
+        apiKey: "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",
+        dangerouslyAllowBrowser: true
+    });
     const values = 'headache,fever,stomachpain,cold,cough';
     const [response, setResponse] = useState({});
     
-    // Define loadPredictor outside of useEffect
     const loadPredictor = async () => {
+
         let symptoms = values.split(',');
         const messageContent = `I am suffering with ${symptoms.join(',')}
                                 now suggest me the precautions, the doctor specialization to consult  and the name of the disease

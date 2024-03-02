@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { Link, useNavigate  } from "react-router-dom";
+
 import UserAuth from './UserAuth';
 import "./Login.css";
 import Button from "../../components/ui/Button";
-import { Link } from "react-router-dom";
 import axios from 'axios';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [errors, setError] = useState({});
   const [values, setValues] = useState({
     Username: '',
@@ -22,12 +24,10 @@ export default function Login() {
     if (hasNoErrors) {
       try {
         const res = await axios.post('http://localhost:8800/login', values);
+        navigate('/home');
         const UserType = res.data.UserDetails.UserType;
-        console.log('success',res.data.UserDetails.UserType);
-        if(UserType === 'Patient' )
-        {
-          alert('Patient');
-        }
+        
+        console.log('success===>',res.data.UserDetails.UserType);
       } catch (err) {
         console.log('error',err.response.data.error); 
         setError({

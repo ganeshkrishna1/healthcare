@@ -1,6 +1,6 @@
 .dashboard-outer-container{
     background-color: #F4FFFA;
-    height: 80vh;
+    min-height: 80vh;
     width: 70%;
     margin: auto;
     border-radius: 20px;

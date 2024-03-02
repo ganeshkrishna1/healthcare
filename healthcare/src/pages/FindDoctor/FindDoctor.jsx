@@ -1,33 +1,31 @@
 import React from "react";
 import "./FindDoctor.css";
 import Select from 'react-select';
-import Rating from 'react-rating'
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
 function FindDoctor(){
-    const filledStar=()=>{
-        return<span class="material-icons-round">
-        star_rate
-        </span>
-    }
-    const emptystar=()=>{
-        return <span class="material-symbols-outlined">
-        star
-        </span>
-    }
-    let symptoms = [
-        "Fever", "Cough", "Shortness of breath", "Fatigue", "Muscle or body aches", "Headache",
-        "Sore throat", "Loss of taste or smell", "Congestion or runny nose", "Nausea or vomiting",
-        "Diarrhea", "Chills", "Repeated shaking with chills", "Sore throat", "New loss of taste or smell",
-        "Headache", "Muscle or body aches", "Fatigue", "Sore throat", "Congestion or runny nose",
-        "Nausea or vomiting", "Diarrhea", "Fever", "Cough", "Shortness of breath", "Fatigue",
-        "Muscle or body aches", "Headache", "Sore throat", "Loss of taste or smell", "Congestion or runny nose",
-        "Nausea or vomiting", "Diarrhea", "Chills", "Repeated shaking with chills", "Sore throat",
-        "New loss of taste or smell", "Congestion or runny nose", "Nausea or vomiting", "Diarrhea",
-        "Headache", "Muscle or body aches", "Fatigue", "Sore throat", "Congestion or runny nose",
-        "Nausea or vomiting", "Diarrhea"
-    ];
-
-    symptoms = [...new Set(symptoms)];
-    symptoms = symptoms.map(symptom => ({ value: symptom, label: symptom }));
+    let doctorspecialization =['Neurologist','general Physician','baby care'];
+    doctorspecialization = doctorspecialization.map(specialization => ({ value: specialization, label: specialization }));
+    const DoctorsList = () => {
+        const doctors = [];
+        for (let i = 0; i < 10; i++) {
+          doctors.push(
+            <div className="doctors-list-item" key={i}>
+              <div className="doctors-list-item-logo">
+                <img src="assets/doctor.png" alt="" />
+              </div>
+              <div className="doctors-list-item-details">
+                <div className="doctor-name">Scott Wann {i+1}</div>
+                <Stack spacing={1}>
+                  <Rating name="size-large" defaultValue={2} size="large" readOnly />
+                </Stack>
+              </div>
+            </div>
+          );
+        }
+        return doctors;
+      }
+      
     return(
         <>
         <div className="dashboard-outer-container">
@@ -38,32 +36,32 @@ function FindDoctor(){
             </div>
             <div className="dashboard-menu-list">
             <Select
-                    options={symptoms}
-                    placeholder={'Select Symptoms'}
+                    options={doctorspecialization}
+                    placeholder={'Select specialization'}
                     clearable={true}
                     isMulti
                 />
 
                 <div className="doctors-list-displayer">
-                    <div className="doctors-list-item">
-                        <div className="doctors-list-item-logo">
+                    {DoctorsList()}
+                </div>
+                <div className="doctor-detail-section">
+                    <div className="doctor-name-logo">
+                        <div className="doctor-logo">
                             <img src="assets/doctor.png" alt="" />
                         </div>
-                        <div className="doctors-list-item-details">
-                            <h3 className="doctor-name">Scott Wann</h3>
-                            <p className="doctor-rating">
-                            <Rating quiet
-  emptySymbol={emptystar()}
-  fullSymbol={filledStar()}
-  fractions={2}
-/>
-                            </p>
+                        <div className="show-doctor-book-appointment">
+                        <div className="doctor-name-specialization">
+                            <div className="doctor-name">Scott Wann</div>
+                            <div className="doctor-specialization">Neurologist</div>
                         </div>
-                        
+                        </div>
                     </div>
-
+                    <div className="doctor-description-details">
+                            <div className="doctor-description-title">Description</div>
+                            <div className="doctor-description-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ipsam vero, aperiam ipsum repellat tempora, veritatis, aspernatur voluptate harum quo autem velit odio aliquid enim qui eveniet eum voluptas fuga?</div>
+                        </div>
                 </div>
-
             </div>
         </div>
         </>
