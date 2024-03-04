@@ -32,3 +32,6 @@ app.delete("/deleteUser", controllers.deleteUser);
 
 app.post("/login", controllers.loginUser);
 
+app.get("/getdoctors", controllers.getdoctors);
+
+app.post("/getSpecializationDoctos", controllers.getSpecializationDoctors);

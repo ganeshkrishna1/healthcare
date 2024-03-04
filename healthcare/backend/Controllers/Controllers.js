@@ -82,6 +82,38 @@ const Controllers = {
 
         });
     },
+    getdoctors: (req, res) => {
+        const userquery = "SELECT distinct(specialization) FROM Doctors";
+        db.query(userquery, (err, data) => {
+            if (err) {
+                console.error("Error fetching users:", err);
+                return res.status(500).json({ error: "Internal server error" });
+            }
+            return res.json(data);
+        });
+    },
+    getSpecializationDoctors: (req, res) => {
+        const selectedSpecialization = req.body.selectedSpecialization;
+        console.log("Selected specialization:", selectedSpecialization);
+    
+        const userquery = "SELECT * FROM Doctors WHERE specialization = ?";
+        const queryWithValues = db.format(userquery, [selectedSpecialization]);
+        console.log("Full query:", queryWithValues);
+    
+        db.query(userquery, [selectedSpecialization], (err, users) => {
+            if (err) {
+                console.error("Error fetching doctors:", err);
+                return res.status(500).json({ error: "Internal server error" });
+            }
+    
+            if (users.length === 0) {
+                return res.status(404).json({ error: "No doctors found for the specified specialization" });
+            }
+    
+            res.json({ message: 'Doctors fetched successfully', doctors: users });
+        });
+    }
+    
     
 };
 

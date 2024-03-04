@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3,1fr);
     gap: 10px;
+    margin: 20px;
 }
 .doctors-list-item-logo>img{
     /* mix-blend-mode:exclusion; */
@@ -28,6 +29,7 @@
     display: grid;
     grid-template-columns: 15% 40%;
     align-items: center;
+    gap: 25px;
 }
 .doctor-logo{
     width: 120px;
@@ -66,7 +68,9 @@
 }
 .book-appointment-button{
     margin-top: 5%;
-    margin-left: auto;
+    display: grid;
+    grid-template-columns: 30% 30%;
+    column-gap: 10rem;
 }
 .appointment-time-selector{
     display: grid;

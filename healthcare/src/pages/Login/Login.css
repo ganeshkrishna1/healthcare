@@ -20,3 +20,11 @@
     color: var(--white);
     background-color: var(--green);
 }
+.LoginInput{
+    height: 40px;
+    border: 2px solid var(--primaryBg);
+    border-radius: 5px;
+}
+.LoginInput:focus{
+    outline-color: var(--green);
+}

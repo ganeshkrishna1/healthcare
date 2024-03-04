@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./Dashboard.css";
-
+import { useNavigate } from "react-router-dom";
+import Appointments from "../Appointments";
 export default function Dashboard() {
+    const navigate = useNavigate();
     const [openMenuIndex, setOpenMenuIndex] = useState(-1);
     const [arrowRotated, setArrowRotated] = useState(false);
-
+    const [appointments, setAppointments] = useState([]);
     const menuArrowDown = (rotated, fillColor) => {
         const rotationStyle = rotated ? { transform: 'rotate(180deg)' } : {};
         return (
@@ -16,34 +18,62 @@ export default function Dashboard() {
 
     const toggleMenu = (index) => {
         setOpenMenuIndex(openMenuIndex === index ? -1 : index);
+        console.log(index);
     }
 
     const toggleArrowRotation = () => {
         setArrowRotated(!arrowRotated);
     }
+    const pastAppointments = () => {
+        console.log(appointments);
+        return appointments.map(Appointment => (
+            <div key={Appointment.id}>
+                <p>{Appointment.appointment.AppointmentDate}</p>
+                <p>{Appointment.appointment.AppointmentTime}</p>
+                <p>{Appointment.appointment.Doctor.FullName}</p>
+            </div>
+        ));
+    }
+
+    const upcomingAppointments = () => {
+        console.log('Upcoming Appointments clicked');
+    }
+
+    const symptomsInput = () => {
+        console.log('Symptoms Input clicked');
+        navigate('/SymptomsInput');
+    }
+
+    const findDoctors = () => {
+        navigate('/FindDoctor');
+    }
 
     const menuitems = [
         {
             title: 'Past Appointments',
-            content: 'You dont have any past appointments',
+            content: pastAppointments(),
+            click: pastAppointments
         },
         {
             title: 'Upcoming Appointments',
-            content: 'You have not scheduled any upcoming appointment',
+            content:  upcomingAppointments(),
+            click: upcomingAppointments
         },
         {
             title: 'Symptoms Input',
             content: 'Click here to enter symptoms',
+            click: symptomsInput
         },
         {
             title: 'Find Doctors',
             content: 'Click here to find doctors',
+            click: findDoctors
         },
     ];
 
     return (
         <div className="dashboard-outer-container">
-            {/* title bar started */}
+            <Appointments setAppointments={setAppointments} />
             <div className="dashboard-header">
                 <div className="dashboard-header-text">
                     Dashboard
@@ -55,28 +85,25 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
-            {/* title bar ended */}
-            {/* dashboard menu list started */}
             <div className="dashboard-menu-list">
                 {menuitems.map((item, index) => (
-                    <div key={index} className="dashboard-menu-list-item" onClick={() => toggleMenu(index)}>
+                    <div key={index} className="dashboard-menu-list-item">
                         <div className="dashboard-menu-list-item-text">
                             {item.title}
                         </div>
-                        <div className="dashboard-menu-list-item-icon">
+                        <div className="dashboard-menu-list-item-icon" onClick={() => toggleMenu(index)}>
                             {menuArrowDown(openMenuIndex === index,'white')}
                         </div>
-                        {/* child content started*/}
+        
                         {openMenuIndex === index && (
-                            <div className="dashboard-menu-list-item-content">
+                            <div className="dashboard-menu-list-item-content" onClick={item.click}>
                                 {item.content}
                             </div>
                         )}
-                        {/* child content ended*/}
+        
                     </div>
                 ))}
             </div>
-            {/* dashboard menu list ended */}
         </div>
     );
 }

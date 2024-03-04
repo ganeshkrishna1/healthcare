@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -8,7 +9,10 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import SymptomsInput from "./pages/SymptomsInput/SymptomsInput";
 import Prediction from "./pages/Prediction/Prediction";
 import FindDoctor from "./pages/FindDoctor/FindDoctor";
+import Appointments from './pages/Appointments';
+import ParentComponent from './pages/ParentComponent';
 function App() {
+  const [loggedUserId, setLoggedUserId] = useState('');
   return (
     <div className="App-main">
       <Header />
@@ -16,11 +20,12 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Dashboard />} />
+          <Route path="/login" element={<Login setLoggedUserId={setLoggedUserId}/>} />
+          <Route path="/home" element={<Dashboard loggedUserId={loggedUserId}/>} />
           <Route path="/SymptomsInput" element={<SymptomsInput />} />
           <Route path="/Prediction" element={<Prediction />} />
-          <Route path="/FindDoctor" element={<FindDoctor />} />
+          <Route path="/FindDoctor" element={<FindDoctor loggedUserId={loggedUserId}/>} />
+          <Route path="/Appointments" element={<ParentComponent/>} />
         </Routes>
       </BrowserRouter>
     </div>
