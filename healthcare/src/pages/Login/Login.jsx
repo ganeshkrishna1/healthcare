@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import UserAuth from './UserAuth';
 import "./Login.css";
 import Button from "../../components/ui/Button";
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { query, where, getDocs, collection } from 'firebase/firestore';
 export default function Login({ setLoggedUserId }) {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
@@ -19,22 +19,45 @@ export default function Login({ setLoggedUserId }) {
     setErrors(CheckData);
     const hasNoErrors = Object.values(CheckData).every(error => error === '');
     if (hasNoErrors) {
-      const userQuery = query(collection(db, "Users"), where("UserName", "==", values.Username));
+      // const username = values.Username;
       try {
-        const querySnapshot = await getDocs(userQuery);
-        if (!querySnapshot.empty) {
-          const doc = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          if (doc[0].Password === values.Password) {
-            localStorage.setItem("LogInUserId", doc[0].id);
-            navigate('/home');
+        // Create a query to search for the user in both 'Users' and 'Doctors' collections
+        const userQuery = query(collection(db, "Users"), where("UserName", "==", values.Username));
+        const doctorQuery = query(collection(db, "Doctors"), where("UserName", "==", values.Username));
+        
+        // Execute both queries concurrently
+        const [userSnapshot, doctorSnapshot] = await Promise.all([
+          getDocs(userQuery),
+          getDocs(doctorQuery)
+        ]);
+        
+        // Check if the user exists in either 'Users' or 'Doctors' collection
+        if (!userSnapshot.empty || !doctorSnapshot.empty) {
+          const userDocs = userSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          const doctorDocs = doctorSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          
+          // Combine results from both collections
+          const allDocs = [...userDocs, ...doctorDocs];
+          
+          // Check password and navigate based on user type
+          const foundUser = allDocs.find(doc => doc.Password === values.Password);
+          if (foundUser) {
+            localStorage.setItem("LogInUserId", foundUser.id);
+            if (foundUser.UserType === 'Patient') {
+              navigate('/home');
+            } else if (foundUser.UserType === 'Admin') {
+              console.log('Logged user type is Admin');
+            } else {
+              navigate('/doctor');
+            }
           } else {
             setErrors({ errorMessage: 'Incorrect Password' });
           }
         } else {
-          setErrors({ errorMessage: `No User found with Username ${values.Username}` });
+          setErrors({ errorMessage: `No user found with Username ${values.Username}` });
         }
       } catch (error) {
-        console.error("Error getting user:", error);
+        console.error("Error searching for user:", error);
       }
     }
   };

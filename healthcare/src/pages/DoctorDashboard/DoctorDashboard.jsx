@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import "./Dashboard.css";
+import "./DoctorDashboard.css";
 import { useNavigate } from "react-router-dom";
 import Modal from '../../components/Modal/Modal';
 import Button from "../../components/ui/Button";
@@ -10,7 +10,7 @@ import { Checkmark } from 'react-checkmark';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import db from '../../firebase';
 
-export default function Dashboard() {
+export default function DoctorDashboard() {
     const [showModal, setShowModal] = useState({ status: '', message: '' });
     const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState('');
@@ -25,7 +25,7 @@ export default function Dashboard() {
     }, []);
 
     const fetchAppointments = async () => {
-        const patientId = localStorage.getItem('LogInUserId');
+        const doctorId = localStorage.getItem('LogInUserId');
         try {
             let tempAppointments = [];
             const querySnapshot = await getDocs(collection(db, 'Appointments'));
@@ -39,7 +39,7 @@ export default function Dashboard() {
                     let patientData = await getDoc(temp.appointment.Patient);
                     temp.appointment.Patient = { PatientID: patientData.id, ...patientData.data() };
                 }
-                if(temp.appointment.Patient.PatientID == patientId){
+                if(temp.appointment.Doctor.DoctorID == doctorId){
 
                     tempAppointments.push(temp);
                 }
@@ -49,6 +49,7 @@ export default function Dashboard() {
             console.error('Error fetching appointments: ', error);
         }
     };
+    
 
     const menuArrowDown = (rotated, fillColor) => {
         const rotationStyle = rotated ? { transform: 'rotate(180deg)' } : {};
@@ -77,7 +78,7 @@ export default function Dashboard() {
     const handleModalClose = () => {
         setShowModal({ status: '', message: '' });
         if (showModal.status === 'Success') {
-            navigate('/home');
+            navigate('/doctor');
         }
     };
 
@@ -124,7 +125,7 @@ export default function Dashboard() {
             await updateDoc(docRef, selectedDate);
             setShowModal({ status: 'Success', message: 'Appointment Rescheduled' });
             setShowAppointmentRescheduling(false);
-            fetchAppointments(); // Update appointments after rescheduling
+            fetchAppointments();
         } catch (error) {
             console.error('Error updating document: ', error);
             setShowModal({ status: 'Failed', message: 'Failed to Reschedule Appointment' });
@@ -144,8 +145,7 @@ export default function Dashboard() {
                         <div key={Appointment.id} className="appointments-list-item">
                             <div className="appointments-list-item-content">
                                 <div className="appointment-number">Appointment #{index + 1}</div>
-                                <div>{Appointment.appointment.Doctor.FullName}</div>
-                                <div>{Appointment.appointment.Doctor.specialization}</div>
+                                <div>{Appointment.appointment.Patient.FullName}</div>
                             </div>
                             <div className="appointments-list-item-content">
                                 <div>{Appointment.appointment.AppointmentDate}</div>
@@ -170,8 +170,7 @@ export default function Dashboard() {
                         <div key={Appointment.id} className="appointments-list-item" onClick={() => handleAppointmentSelection(Appointment)}>
                             <div className="appointments-list-item-content">
                                 <div className="appointment-number">Appointment #{index + 1}</div>
-                                <div>{Appointment.appointment.Doctor.FullName}</div>
-                                <div>{Appointment.appointment.Doctor.specialization}</div>
+                                <div>{Appointment.appointment.Patient.FullName}</div>
                             </div>
                             <div className="appointments-list-item-content">
                                 <div>{Appointment.appointment.AppointmentDate}</div>
@@ -194,15 +193,13 @@ export default function Dashboard() {
     const menuitems = [
         { title: 'Past Appointments', content: pastAppointments() || 'No Scheduled Appointments Found', click: pastAppointments },
         { title: 'Upcoming Appointments', content: upcomingAppointments() || 'No Scheduled Appointments Found', click: upcomingAppointments },
-        { title: 'Symptoms Input', content: 'Click here to enter symptoms', click: symptomsInput },
-        { title: 'Find Doctors', content: 'Click here to find doctors', click: findDoctors },
     ];
 
     return (
         <div className="dashboard-outer-container">
-            <div className="dashboard-header">
+            <div className="doctor-dashboard-header">
                 <div className="dashboard-header-text">Dashboard</div>
-                <div className="dashboard-header-menu">
+                <div className="doctor-dashboard-header-menu">
                     <img className="user-logo" src="assets/Patient-logo.jpg" alt="logo" />
                     <div className="user-logo-arrow" onClick={toggleArrowRotation}>
                         {menuArrowDown(arrowRotated, 'black')}

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "./SymptomsInput.css";
 import Select from 'react-select';
 import Button from "../../components/ui/Button";
+import { useNavigate } from "react-router-dom";
 function SymptomsInput() {
+    const navigate = useNavigate();
     const closeIcon = () => {
         return (
             <span className="material-symbols-outlined">
@@ -32,7 +34,10 @@ function SymptomsInput() {
             </div>
         );
     };
-const handleOnClick= () =>{};
+const handleOnClick= () =>{
+    localStorage.setItem('symptoms',selectedSymptoms);
+    navigate('/Prediction')
+};
     let symptoms = [
         "Fever", "Cough", "Shortness of breath", "Fatigue", "Muscle or body aches", "Headache",
         "Sore throat", "Loss of taste or smell", "Congestion or runny nose", "Nausea or vomiting",

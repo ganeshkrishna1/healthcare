@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./Prediction.css";
 import Button from "../../components/ui/Button";
 import OpenAI from 'openai';
+import { useNavigate } from "react-router-dom";
 
 function Prediction() {
+    const navigate = useNavigate();
     const openAi = new OpenAI({
         apiKey: "",
         dangerouslyAllowBrowser: true
     });
-    const values = 'headache,bodypains';
+    const values = localStorage.getItem('symptoms');
     const [response, setResponse] = useState({});
     
     const loadPredictor = async () => {
@@ -36,14 +38,17 @@ function Prediction() {
     };
 
     useEffect(() => {
-        // Call loadPredictor inside useEffect
         loadPredictor();
-    }, []); // Ensure to include an empty dependency array if loadPredictor doesn't depend on any variables
+    }, [setResponse]);
 
-    const handleOnClick = () => { };
+    const handleOnClick = () => { navigate('/FindDoctor')};
 
     return (
         <>
+        <div className="dashboard-outer-container">
+            <div className="dashboard-header">
+                <div className="dashboard-header-text">Predicted data</div>
+            </div>
             <div className="predictor-outer-container">
                 <div className="predictor-inner-container">
                     <div className="predicted-disease">
@@ -65,12 +70,8 @@ function Prediction() {
                         buttonType="primary"
                         handleFunction={handleOnClick}
                     />
-                    <Button
-                        label="Book Appointment"
-                        buttonType="primary"
-                        handleFunction={handleOnClick}
-                    />
                 </div>
+            </div>
             </div>
         </>
     );
