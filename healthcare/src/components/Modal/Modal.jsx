@@ -1,12 +1,12 @@
 import React from 'react';
 import './Modal.css';
 
-const Modal = ({ children }) => {
+const Modal = ({ children, className }) => {
   return (
     <div className="edit-modal-overlay">
       <div className="edit-modal">
-        <div className="modal-content">
-        {children}
+        <div className={`modal-content ${className || ''}`}>
+          {children}
         </div>
       </div>
     </div>

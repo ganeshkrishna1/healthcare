@@ -78,3 +78,41 @@
     text-align: center;
     font-weight: 600;
 }
+.appointments-list-item{
+    background-color: #225C65;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+.appointment{
+    display: grid;
+    row-gap: 20px;
+}
+.appointments-list-item-content{
+    margin: 20px;
+    text-align: left;
+    display: grid;
+    row-gap: 5px;
+}
+.appointments-list-item-content>div{
+    color: white;
+    font-family: league spartan;
+    font-weight: 400;
+}
+.appointment-number{
+    font-size: larger;
+    font-weight: 900;
+}
+.Appointment-details{
+    display: grid;
+    row-gap: 25px;
+}
+.appointment-date-time{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.white-text{
+    color: white;
+}
+.appointment-date-time>div{
+    font-size: larger;
+}

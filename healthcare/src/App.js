@@ -10,7 +10,6 @@ import SymptomsInput from "./pages/SymptomsInput/SymptomsInput";
 import Prediction from "./pages/Prediction/Prediction";
 import FindDoctor from "./pages/FindDoctor/FindDoctor";
 import Appointments from './pages/Appointments';
-import ParentComponent from './pages/ParentComponent';
 function App() {
   const [loggedUserId, setLoggedUserId] = useState('');
   return (
@@ -25,7 +24,6 @@ function App() {
           <Route path="/SymptomsInput" element={<SymptomsInput />} />
           <Route path="/Prediction" element={<Prediction />} />
           <Route path="/FindDoctor" element={<FindDoctor loggedUserId={loggedUserId}/>} />
-          <Route path="/Appointments" element={<ParentComponent/>} />
         </Routes>
       </BrowserRouter>
     </div>

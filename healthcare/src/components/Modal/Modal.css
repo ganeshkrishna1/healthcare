@@ -24,3 +24,10 @@
     align-items: center;
     overflow-y:auto;
   }
+  .appointment-modal-content{
+    border-radius: 20px !important;
+    padding: 40px;
+    background-color: #225C65 !important;
+    align-items: center;
+    overflow-y:auto;
+  }
