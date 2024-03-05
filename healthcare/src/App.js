@@ -9,7 +9,6 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import SymptomsInput from "./pages/SymptomsInput/SymptomsInput";
 import Prediction from "./pages/Prediction/Prediction";
 import FindDoctor from "./pages/FindDoctor/FindDoctor";
-import Appointments from './pages/Appointments';
 function App() {
   const [loggedUserId, setLoggedUserId] = useState('');
   return (

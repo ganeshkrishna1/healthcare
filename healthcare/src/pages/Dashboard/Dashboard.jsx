@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
-import Appointments from "../Appointments";
 import Modal from '../../components/Modal/Modal';
 import Button from "../../components/ui/Button";
 import Datetime from 'react-datetime';
